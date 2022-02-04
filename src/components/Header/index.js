@@ -1,8 +1,10 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './Header.css';
 import logo from '../../assets/xcessorize-logo.png';
+
+import GoogleAuth from '../GoogleAuth';
 
 class Header extends React.Component {
 	state = {
@@ -44,7 +46,7 @@ class Header extends React.Component {
 							<Link to="/cart">Cart</Link>
 						</li>
 						<li className="nav-button">
-							<Link to="/">Auth</Link>	
+							<GoogleAuth />	
 						</li>
 					</ul>
 				</div>

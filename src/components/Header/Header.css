@@ -89,8 +89,7 @@ header {
 	align-items: center;
 }
 
-.nav-link,
-.nav-button {
+.nav-link {
 	text-align: center;
 	padding: 10px;
 	width: 90%;
@@ -102,6 +101,16 @@ header {
 	font-size: 1.1rem;
 	display: block;
 	width: 100%;
+}
+
+.nav-button {
+	padding: 0;
+	width: 100%;
+}
+
+.nav-button button {
+	width: 100%;
+	justify-content: center;
 }
 
 /* *********** 
@@ -133,6 +142,7 @@ header {
 	.nav-link,
 	.nav-button {
 		border-bottom: none;
+		width: auto;
 	}
 
 	.nav-link a {

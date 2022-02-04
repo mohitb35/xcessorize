@@ -21,3 +21,23 @@ a:focus {
 	border: 2px solid rgb(245, 121, 59);
 	border-radius: 5px;
 }
+
+button {
+	appearance: none;
+	border: none;
+	border-radius: 5px;
+	padding: 10px;
+	font-size: 14px;
+	display: flex;
+	align-items: center;
+	transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+	transform: scale(1.05);
+}
+
+button:focus {
+	outline: transparent;
+	border: 2px solid rgb(245, 121, 59);
+}
