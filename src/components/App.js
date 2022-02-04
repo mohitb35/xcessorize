@@ -1,5 +1,5 @@
-import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import './App.css';
 
@@ -16,7 +16,7 @@ const App = () => {
     <div className="App">
 		<BrowserRouter>
 			<Header />
-			<main class="container">
+			<main className="container">
 				<Switch>
 					<Route path="/" exact component={Home} />
 					<Route path="/cart" exact component={Cart} />
