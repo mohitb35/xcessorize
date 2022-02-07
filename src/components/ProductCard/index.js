@@ -11,8 +11,8 @@ function renderProduct(product) {
 				<img className="product-thumbnail" src={product.imageURL} alt={product.name}/>
 			</div>
 			<div className="product-info">
-				<h2>{product.name}</h2>
-				<p>{product.description}</p>
+				<h2 class="product-name">{product.name}</h2>
+				<p class="product-description">{product.description}</p>
 				<div class="product-price">₹ {product.price}</div>
 				<AddRemoveFromCart />
 			</div>
