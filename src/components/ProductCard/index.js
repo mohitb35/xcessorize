@@ -11,10 +11,10 @@ function renderProduct(product) {
 				<img className="product-thumbnail" src={product.imageURL} alt={product.name}/>
 			</div>
 			<div className="product-info">
-				<h2 class="product-name">{product.name}</h2>
-				<p class="product-description">{product.description}</p>
-				<div class="product-price">₹ {product.price}</div>
-				<AddRemoveFromCart />
+				<h2 className="product-name">{product.name}</h2>
+				<p className="product-description">{product.description}</p>
+				<div className="product-price">₹ {product.price}</div>
+				<AddRemoveFromCart product={product}/>
 			</div>
 		</article>
 	)
