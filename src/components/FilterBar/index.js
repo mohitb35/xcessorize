@@ -56,7 +56,6 @@ class FilterBar extends React.Component {
 	}
 
 	generateCategoryOptions () {
-		console.log(this);
 		return this.props.categories.map(category => {
 			return (
 				<option value={category.id} key={category.id}>{category.name}</option>
