@@ -2,8 +2,9 @@ header {
 	background: radial-gradient(
 		316.37% 2315.5% at 0% 50%,
 		#000000 0%,
-		rgba(0, 0, 0, 0) 100%
+		#ffffff 100%
 	);
+
 	width: 100%;
 	color: white;
 	position: fixed;
