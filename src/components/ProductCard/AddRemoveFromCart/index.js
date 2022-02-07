@@ -1,7 +1,9 @@
 import React from 'react';
 
+import './AddRemoveFromCart.css';
+
 const AddRemoveFromCart = () => {
-	return <div>AddRemoveFromCart</div>
+	return <button class="add-to-cart-button">Add To Cart</button>
 }
 
 export default AddRemoveFromCart;

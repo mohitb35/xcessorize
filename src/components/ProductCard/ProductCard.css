@@ -1,0 +1,38 @@
+.product-card {
+	display: grid;
+	grid-template-columns: 2fr 5fr;
+	gap: 20px;
+	background-color: #eeeeee;
+	border-radius: 10px;
+	padding: 20px;
+}
+
+.image-wrapper {
+	height: 250px;
+	background-color: #000000;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.product-thumbnail {
+	width: 100%;
+	max-height: 250px;
+	object-fit: contain;
+}
+
+.product-info {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	align-items: flex-start;
+}
+
+.product-info h2 {
+	font-size: 1.25rem;
+}
+
+.product-price {
+	font-size: 1.25rem;
+	font-weight: 500;
+}

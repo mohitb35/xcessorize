@@ -14,6 +14,7 @@ class FilterBar extends React.Component {
 
 	componentDidMount() {
 		this.props.fetchCategories();
+		this.props.fetchProducts(); //Reconsider. Is this the best place for this?
 	}
 	
 	fetchProducts () {
