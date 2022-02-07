@@ -1,0 +1,37 @@
+.filter-container {
+	background-color: #ddecfa;
+	padding: 10px;
+	border-radius: 5px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.search-widget {
+	flex: 1;
+}
+
+.filter-options {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	gap: 10px;
+}
+
+.filter-options label {
+	margin-right: 5px;
+	font-size: 14px;
+}
+
+@media (min-width: 769px) {
+	.filter-container {
+		flex-direction: row;
+		justify-content: space-between;
+		padding: 20px;
+		gap: 20px;
+	}
+
+	.filter-options {
+		gap: 20px;
+	}
+}

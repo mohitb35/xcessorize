@@ -14,7 +14,7 @@ import reducers from './reducers';
 
 const persistConfig = {
 	key: 'xcessorize',
-	storage,
+	storage
   }
 
 const persistedReducer = persistReducer(persistConfig, reducers);

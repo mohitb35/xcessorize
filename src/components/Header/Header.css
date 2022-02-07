@@ -91,7 +91,7 @@ header {
 
 .nav-link {
 	text-align: center;
-	padding: 10px;
+	padding: 10px 0;
 	width: 90%;
 	border-bottom: 1px solid #d7d7d7;
 }
@@ -129,7 +129,7 @@ header {
 
 	.nav-link-container {
 		flex-direction: row;
-		gap: 20px;
+		gap: 40px;
 		padding: 10px 30px;
 	}
 
