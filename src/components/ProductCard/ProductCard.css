@@ -49,12 +49,24 @@
 		gap: 20px;
 	}
 
+	.cart .product-card {
+		grid-template-columns: 1fr 6fr;
+	}
+
 	.image-wrapper {
 		height: 250px;
 	}
 
+	.cart .image-wrapper {
+		height: 150px;
+	}
+
 	.product-thumbnail {
 		max-height: 250px;
+	}
+
+	.cart .product-thumbnail {
+		height: 150px;
 	}
 
 	.product-price {

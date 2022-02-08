@@ -4,7 +4,7 @@ import AddRemoveFromCart from './AddRemoveFromCart';
 
 import './ProductCard.css';
 
-function renderProduct(product) {
+function renderProduct(product, page) {
 	return (
 		<article className="product-card">
 			<div className="image-wrapper">
@@ -12,7 +12,9 @@ function renderProduct(product) {
 			</div>
 			<div className="product-info">
 				<h2 className="product-name">{product.name}</h2>
-				<p className="product-description">{product.description}</p>
+				{ page !== 'cart' &&
+					<p className="product-description">{product.description}</p>
+				}
 				<div className="product-price">₹ {product.price}</div>
 				<AddRemoveFromCart product={product}/>
 			</div>
@@ -22,7 +24,7 @@ function renderProduct(product) {
 
 const ProductCard = (props) => {
 	return (
-		renderProduct(props.product)
+		renderProduct(props.product, props.page)
 	);
 }
 

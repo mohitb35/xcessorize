@@ -114,6 +114,19 @@ header {
 	justify-content: center;
 }
 
+.cart-item-count {
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	background-color: red;
+	color: #ffffff;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 0.875rem;
+	margin: 0 5px;
+}
+
 /* *********** 
  Media Queries 
  *************/
@@ -148,5 +161,9 @@ header {
 
 	.nav-link a {
 		color: white;
+	}
+
+	.nav-link {
+		padding: 0;
 	}
 }

@@ -1,10 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import './Header.css';
 import logo from '../../assets/xcessorize-logo.png';
 
 import GoogleAuth from '../GoogleAuth';
+
+import { cartItemCount } from '../../utils';
 
 class Header extends React.Component {
 	state = {
@@ -21,7 +24,7 @@ class Header extends React.Component {
 		const navMenuClasses = `nav-menu ${this.state.isMenuOpen ? 'open' : ''}`;
 		const menuButtonClasses = `menu-button ${this.state.isMenuOpen ? 'open' : ''}`;
 		return (
-			<header>
+			<header className="header">
 				<div className="nav-first">
 					<div className="container">
 						<div className="brand">
@@ -43,7 +46,10 @@ class Header extends React.Component {
 							<Link to="/orders">Orders</Link>
 						</li>
 						<li className="nav-link">
-							<Link to="/cart">Cart</Link>
+							<Link to="/cart">
+								Cart
+								<span class="cart-item-count">{this.props.cartItemCount}</span>
+							</Link>
 						</li>
 						<li className="nav-button">
 							<GoogleAuth />	
@@ -55,4 +61,12 @@ class Header extends React.Component {
 	}
 }
 
-export default Header;
+const mapStateToProps = (state) => {
+	return {
+		cartItemCount: cartItemCount(Object.values(state.cart))
+	}
+}
+
+export default connect(
+	mapStateToProps
+)(Header);

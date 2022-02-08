@@ -106,7 +106,7 @@ class FilterBar extends React.Component {
 
 	render() {
 		return (
-			<div className="filter-container">
+			<div className="filter-bar">
 				{this.renderSearch()}
 				<div className="filter-options">
 					{this.renderCategoryFilter()}

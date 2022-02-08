@@ -13,7 +13,7 @@ import Footer from './Footer';
 
 const App = () => {
   return (
-    <div className="App">
+    <div className="app">
 		<BrowserRouter>
 			<Header />
 			<main className="container">

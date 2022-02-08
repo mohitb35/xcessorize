@@ -3,7 +3,7 @@ import React from 'react';
 import './Footer.css';
 
 const Footer = () => {
-	return <footer>
+	return <footer className="footer">
 		<div className="container">
 			Copyright © 2022 Mohit Bajaj
 		</div>
