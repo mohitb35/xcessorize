@@ -48,7 +48,7 @@ class Header extends React.Component {
 						<li className="nav-link">
 							<Link to="/cart">
 								Cart
-								<span class="cart-item-count">{this.props.cartItemCount}</span>
+								<span className="cart-item-count">{this.props.cartItemCount}</span>
 							</Link>
 						</li>
 						<li className="nav-button">

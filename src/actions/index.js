@@ -1,7 +1,9 @@
 import { 
 	ADD_TO_CART,
 	API_ERROR,
+	CREATE_ORDER,
 	FETCH_CATEGORIES,
+	FETCH_ORDERS,
 	FETCH_PRODUCTS,
 	REMOVE_FROM_CART,
 	SIGN_IN, 
@@ -90,6 +92,48 @@ export const removeFromCart = (product) => {
 	return {
 		type: REMOVE_FROM_CART,
 		payload: product
+	}
+}
+
+export const createOrder = (formValues, cart, cartTotal, cartItemCount) => {
+	return async function (dispatch, getState) {
+		const orderData = {
+			...formValues, 
+			items: cart,
+			itemCount: cartItemCount,
+			total: cartTotal,
+			userId: getState().auth.userId,
+			payment: 'cod',
+			orderDate: new Date()
+		}
+		try {
+			const response = await apiServer.post('/orders', orderData);
+			const newOrder = response.data;
+			dispatch({
+				type: CREATE_ORDER,
+				payload: newOrder
+			});
+		} catch (err) {
+			dispatch(apiError(err));
+		}
+	}
+}
+
+export const fetchOrders = () => {
+	return async function (dispatch, getState) {
+		try {
+			const response = await apiServer.get('/orders', {
+				params: {
+					userId: getState().auth.userId
+				}
+			});
+			dispatch({
+				type: FETCH_ORDERS,
+				payload: response.data
+			});
+		} catch (err) {
+			dispatch(apiError(err));
+		}
 	}
 }
 

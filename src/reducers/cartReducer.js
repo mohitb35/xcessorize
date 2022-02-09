@@ -1,6 +1,8 @@
-import { ADD_TO_CART, REMOVE_FROM_CART, SIGN_OUT } from "../actions/types";
+import { ADD_TO_CART, CREATE_ORDER, REMOVE_FROM_CART, SIGN_OUT } from "../actions/types";
 
-const cartReducer = (state = {}, action) => {
+const INITIAL_STATE = {};
+
+const cartReducer = (state = INITIAL_STATE, action) => {
 	let initialQuantity;
 	switch (action.type) {
 		case ADD_TO_CART:
@@ -27,8 +29,9 @@ const cartReducer = (state = {}, action) => {
 					}
 				}
 			};
+		case CREATE_ORDER: 
 		case SIGN_OUT:
-			return {};
+			return INITIAL_STATE;
 		default:
 			return state;
 	}

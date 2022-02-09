@@ -2,23 +2,23 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import ProductList from '../ProductList';
+import ProductList from '../../ProductList';
 
-import { cartItemCount, cartTotal } from '../../utils';
+import { cartItemCount, cartTotal } from '../../../utils';
 
-import './Cart.css';
+import '../OrderFlow.css';
 
 class Cart extends React.Component {
 	renderSidebar () {
 		let { cartTotal, cartItemCount } = this.props;
 		return (
-			<div className="side-bar">
+			<div className="grid-side-bar">
 				<div className="summary">
 					<div className="summary-header">
 						<label>Total ({cartItemCount} items):</label>
-						<span class="total">₹ {cartTotal}</span>
+						<span className="total">₹ {cartTotal}</span>
 					</div>
-					<Link to="/checkout" className={!cartTotal && "disabled"}>
+					<Link to="/checkout" className={!cartTotal ? "disabled" : ""}>
 						<button 
 							className="checkout-button" 
 							disabled={!cartItemCount}
@@ -26,7 +26,7 @@ class Cart extends React.Component {
 							Checkout
 						</button>
 					</Link>
-					<div class="text-separator"><span>or</span></div>
+					<div className="text-separator"><span>or</span></div>
 					<Link to="/">
 						Continue shopping on Xcessorize
 					</Link>
@@ -39,9 +39,9 @@ class Cart extends React.Component {
 		let { cartItemCount } = this.props;
 		return (
 			<div className="cart">
-				<h1 className="cart-header">My Cart ({cartItemCount})</h1>
+				<h1 className="grid-page-header">My Cart ({cartItemCount})</h1>
 				{ !cartItemCount && 
-					<div class="message">Your cart is currently empty. Add some items to checkout.</div>
+					<div className="grid-page-message">Your cart is currently empty. Add some items to checkout.</div>
 				}
 				{ cartItemCount !== 0 &&
 					<ProductList page="cart"/>
