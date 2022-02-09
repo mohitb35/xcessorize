@@ -11,3 +11,15 @@ export const cartTotal = (cart) => {
 		0
 	)
 }
+
+export const formattedDate = (orderDate) => {
+	const monthArray = [
+		'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
+	];
+
+	const date = orderDate.getDate();
+	const month = monthArray[orderDate.getMonth()];
+	const year = orderDate.getFullYear();
+
+	return `${date} ${month} ${year}`;
+}

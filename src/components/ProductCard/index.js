@@ -4,7 +4,7 @@ import AddRemoveFromCart from './AddRemoveFromCart';
 
 import './ProductCard.css';
 
-function renderProduct(product, page) {
+function renderProduct (product, page) {
 	return (
 		<article className="product-card">
 			<div className="image-wrapper">

@@ -3,6 +3,7 @@ import {
 	API_ERROR,
 	CREATE_ORDER,
 	FETCH_CATEGORIES,
+	FETCH_ORDER,
 	FETCH_ORDERS,
 	FETCH_PRODUCTS,
 	REMOVE_FROM_CART,
@@ -103,7 +104,7 @@ export const createOrder = (formValues, cart, cartTotal, cartItemCount) => {
 			itemCount: cartItemCount,
 			total: cartTotal,
 			userId: getState().auth.userId,
-			payment: 'cod',
+			payment: 'Cash on delivery',
 			orderDate: new Date()
 		}
 		try {
@@ -122,13 +123,37 @@ export const createOrder = (formValues, cart, cartTotal, cartItemCount) => {
 export const fetchOrders = () => {
 	return async function (dispatch, getState) {
 		try {
-			const response = await apiServer.get('/orders', {
+			const { userId } = getState().auth;
+			let orders = [];
+			if (userId) {
+				const response = await apiServer.get('/orders', {
+					params: {
+						userId
+					}
+				});
+				orders = response.data;
+			}
+			dispatch({
+				type: FETCH_ORDERS,
+				payload: orders
+			});
+		} catch (err) {
+			console.log(err);
+			dispatch(apiError(err));
+		}
+	}
+}
+
+export const fetchOrder = (orderId) => {
+	return async function (dispatch, getState) {
+		try {
+			const response = await apiServer.get(`/orders/${orderId}`, {
 				params: {
 					userId: getState().auth.userId
 				}
 			});
 			dispatch({
-				type: FETCH_ORDERS,
+				type: FETCH_ORDER,
 				payload: response.data
 			});
 		} catch (err) {
