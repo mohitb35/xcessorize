@@ -44,3 +44,9 @@
 	font-size: 14px;
 	text-align: right;
 }
+
+@media (min-width: 769px) {
+	.address-form-container {
+		margin: 0 10px;
+	}
+}
