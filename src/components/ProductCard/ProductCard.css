@@ -49,7 +49,8 @@
 		gap: 20px;
 	}
 
-	.cart .product-card {
+	.cart .product-card,
+	.order-details .product-card {
 		grid-template-columns: 1fr 6fr;
 	}
 
@@ -61,12 +62,20 @@
 		height: 150px;
 	}
 
+	.order-details .image-wrapper {
+		height: 100px;
+	}
+
 	.product-thumbnail {
 		max-height: 250px;
 	}
 
 	.cart .product-thumbnail {
 		height: 150px;
+	}
+
+	.order-details .product-thumbnail {
+		height: 100px;
 	}
 
 	.product-price {

@@ -23,3 +23,9 @@ export const formattedDate = (orderDate) => {
 
 	return `${date} ${month} ${year}`;
 }
+
+export const formattedAddress = (address) => {
+	return (
+		`${address['line 1']}, ${address['line 2'] || ''}, ${address['city']} - ${address['pincode']}, ${address['state']}`
+	).replace(', ,', ',');
+}
