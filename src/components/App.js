@@ -10,6 +10,8 @@ import Checkout from './OrderFlow/Checkout';
 import Orders from './Orders';
 import OrderDetails from './OrderDetails';
 import Footer from './Footer';
+import PrivateRoute from './PrivateRoute';
+import Login from './Login';
 
 const App = () => {
   return (
@@ -20,12 +22,10 @@ const App = () => {
 				<Switch>
 					<Route path="/" exact component={Home} />
 					<Route path="/cart" exact component={Cart} />
-					<Route path="/checkout" exact component={Checkout} />
-					{/* <PrivateRoute path="/checkout" component={Checkout} /> */}
-					<Route path="/orders" exact component={Orders} />
-					{/* <PrivateRoute path="/orders" component={Orders} /> */}
-					<Route path="/orders/:id" exact component={OrderDetails} />
-					{/* <PrivateRoute path="/orders/:id" exact component={OrderDetails} /> */}
+					<PrivateRoute path="/checkout" exact component={Checkout} />
+					<PrivateRoute path="/orders" exact component={Orders} />
+					<PrivateRoute path="/orders/:id" exact component={OrderDetails} />
+					<Route path="/login" exact component={Login} />
 				</Switch>
 			</main>
 			<Footer />
