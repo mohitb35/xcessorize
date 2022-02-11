@@ -6,9 +6,9 @@
 }
 
 .checkout-button:hover,
-.checkout-button:focus,
+.checkout-button:focus-visible,
 .place-order-button:hover,
-.place-order-button:focus {
+.place-order-button:focus-visible {
 	background-color: #f4a540;
 	color: #000000;
 }

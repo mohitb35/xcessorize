@@ -15,9 +15,9 @@
 }
 
 .add-to-cart-button:hover,
-.add-to-cart-button:focus,
+.add-to-cart-button:focus-visible,
 .remove-from-cart-button:hover,
-.remove-from-cart-button:focus {
+.remove-from-cart-button:focus-visible {
 	background-color: #333;
 	color: #f7f7f7;
 }

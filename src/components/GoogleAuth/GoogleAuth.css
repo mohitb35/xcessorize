@@ -9,7 +9,7 @@
 }
 
 .google-auth-button:hover,
-.google-auth-button:focus {
+.google-auth-button:focus-visible {
 	transform: scaleY(1.05);
 	transform: scaleX(1);
 }
@@ -23,12 +23,12 @@
 	}
 
 	.google-auth-button:hover,
-	.google-auth-button:focus {
+	.google-auth-button:focus-visible {
 		background: #ffe96c;
 	}
 
 	.google-auth-button:hover,
-	.google-auth-button:focus {
+	.google-auth-button:focus-visible {
 		transform: scale(1.05);
 	}
 }
