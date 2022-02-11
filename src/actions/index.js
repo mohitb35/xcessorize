@@ -42,7 +42,6 @@ export const fetchCategories = () => {
 }
 
 export const fetchProducts = (searchTerm = '', categoryId = 0, sortOption = 1) => {
-	// console.log(searchTerm, categoryId, sortOption);
 	return async function(dispatch) {
 		try {
 			const queryConfig = {};
@@ -66,7 +65,6 @@ export const fetchProducts = (searchTerm = '', categoryId = 0, sortOption = 1) =
 					break;
 			}
 
-			// console.log("Query params:", queryConfig);
 			const response = await apiServer.get('/products', {
 				params: queryConfig
 			});
