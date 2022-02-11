@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import './Header.css';
@@ -21,6 +21,7 @@ class Header extends React.Component {
 	}
 
 	render() {
+		const { location, cartItemCount } = this.props;
 		const navMenuClasses = `nav-menu ${this.state.isMenuOpen ? 'open' : ''}`;
 		const menuButtonClasses = `menu-button ${this.state.isMenuOpen ? 'open' : ''}`;
 		return (
@@ -28,8 +29,10 @@ class Header extends React.Component {
 				<div className="nav-first">
 					<div className="container">
 						<div className="brand">
-							<img src={logo} className="brand-image" alt="brand-logo"/>
-							<span className="brand-name">Xcessorize</span>
+							<Link to="/">
+								<img src={logo} className="brand-image" alt="brand-logo"/>
+								<span className="brand-name">Xcessorize</span>
+							</Link>
 						</div>
 						<div className={menuButtonClasses} id="menu-button" onClick={this.toggleMenu}>
 							<span className="menu-label">Menu</span>
@@ -39,21 +42,23 @@ class Header extends React.Component {
 				</div>
 				<div className={navMenuClasses}>
 					<ul className="nav-link-container">
-						<li className="nav-link">
+						<li className={`nav-link ${location.pathname ==='/' ? 'selected' : ''}`}>
 							<Link to="/">Home</Link>
 						</li>
-						<li className="nav-link">
+						<li className={`nav-link ${location.pathname.includes('orders') ? 'selected' : ''}`}>
 							<Link to="/orders">Orders</Link>
 						</li>
-						<li className="nav-link">
+						<li className={`nav-link ${location.pathname.includes('cart') ? 'selected' : ''}`}>
 							<Link to="/cart">
 								Cart
-								<span className="cart-item-count">{this.props.cartItemCount}</span>
+								<span className="cart-item-count">{cartItemCount}</span>
 							</Link>
 						</li>
+						{ location.pathname !== '/login' && 
 						<li className="nav-button">
 							<GoogleAuth />	
 						</li>
+						}	
 					</ul>
 				</div>
 			</header>
@@ -67,6 +72,6 @@ const mapStateToProps = (state) => {
 	}
 }
 
-export default connect(
-	mapStateToProps
-)(Header);
+export default withRouter(
+	connect(mapStateToProps)(Header)
+);

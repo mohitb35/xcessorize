@@ -20,7 +20,7 @@ header {
 	align-items: center;
 }
 
-.brand {
+.brand a {
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
@@ -100,8 +100,15 @@ header {
 .nav-link a {
 	color: #333;
 	font-size: 1.1rem;
-	display: block;
+	display: flex;
+	align-items: center;
 	width: 100%;
+}
+
+.nav-link.selected a {
+	color: #f5793b;
+	font-weight: bold;
+	text-transform: uppercase;
 }
 
 .nav-button {
@@ -151,6 +158,8 @@ header {
 		max-height: none;
 		background-color: inherit;
 		box-shadow: none;
+		display: flex;
+		align-items: center;
 	}
 
 	.nav-link,
