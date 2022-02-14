@@ -5,8 +5,10 @@ import {
 	FETCH_CATEGORIES,
 	FETCH_ORDER,
 	FETCH_ORDERS,
-	FETCH_PRODUCTS,
+	INVALIDATE_PRODUCTS,
+	RECEIVE_PRODUCTS,
 	REMOVE_FROM_CART,
+	REQUEST_PRODUCTS,
 	SIGN_IN, 
 	SIGN_OUT
 } from './types';
@@ -41,8 +43,28 @@ export const fetchCategories = () => {
 	}
 }
 
+export const invalidateProducts = () => {
+	return {
+		type: INVALIDATE_PRODUCTS
+	}
+}
+
+export const requestProducts = () => {
+	return {
+		type: REQUEST_PRODUCTS
+	}
+}
+
+export const receiveProducts = (products) => {
+	return {
+		type: RECEIVE_PRODUCTS,
+		payload: products
+	}
+}
+
 export const fetchProducts = (searchTerm = '', categoryId = 0, sortOption = 1) => {
 	return async function(dispatch) {
+		dispatch(requestProducts());
 		try {
 			const queryConfig = {};
 			
@@ -70,11 +92,9 @@ export const fetchProducts = (searchTerm = '', categoryId = 0, sortOption = 1) =
 			});
 
 			const products = response.data;
-			dispatch({
-				type: FETCH_PRODUCTS,
-				payload: products
-			})
+			dispatch(receiveProducts(products));
 		} catch (err) {
+			console.log(err);
 			dispatch(apiError(err));
 		}
 	}

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import './FilterBar.css';
 
-import { fetchCategories, fetchProducts } from '../../actions';
+import { fetchCategories, fetchProducts, invalidateProducts } from '../../actions';
 
 class FilterBar extends React.Component {
 	state = {
@@ -14,11 +14,13 @@ class FilterBar extends React.Component {
 
 	componentDidMount() {
 		this.props.fetchCategories();
+		this.props.invalidateProducts();
 		this.props.fetchProducts(); //Reconsider. Is this the best place for this?
 	}
 	
 	fetchProducts () {
 		const { searchTerm, categoryId, sortOption } = this.state;
+		this.props.invalidateProducts();
 		this.props.fetchProducts(searchTerm, categoryId, sortOption);
 	}
 
@@ -126,5 +128,5 @@ const mapStateToProps = (state) => {
 
 export default connect(
 	mapStateToProps,
-	{ fetchCategories, fetchProducts }
+	{ fetchCategories, fetchProducts, invalidateProducts }
 )(FilterBar);

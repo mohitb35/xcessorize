@@ -23,7 +23,7 @@ const mapStateToProps = (state, ownProps) => {
 	switch(ownProps.page) {
 		case "home": 
 			return {
-				products: state.products
+				products: state.products.items
 			}
 		case "cart":
 			return {
