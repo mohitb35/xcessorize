@@ -1,4 +1,4 @@
-import { INVALIDATE_PRODUCTS, RECEIVE_PRODUCTS, REQUEST_PRODUCTS } from "../actions/types";
+import { INVALIDATE_PRODUCTS, RECEIVE_PRODUCTS, REQUEST_PRODUCTS, RESTART_APP } from "../actions/types";
 
 const INITIAL_STATE = {
 	didInvalidate: false,
@@ -26,6 +26,8 @@ const productReducer = (state = INITIAL_STATE, action) => {
 				isFetching: false,
 				items: action.payload
 			}
+		case RESTART_APP:
+			return INITIAL_STATE;
 		default:
 			return state;
 	}

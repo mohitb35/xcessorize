@@ -10,6 +10,7 @@ import reduxThunk from 'redux-thunk';
 import './index.css';
 
 import App from './components/App';
+import ErrorBoundary from './components/ErrorBoundary';
 import reducers from './reducers';
 
 const persistConfig = {
@@ -29,10 +30,12 @@ const store = createStore(
 const persistor = persistStore(store);
 
 ReactDOM.render(
-	<Provider store={store}>
-		<PersistGate loading={null} persistor={persistor}>
-			<App />
-		</PersistGate>
-	</Provider>,
+			<Provider store={store}>
+				<ErrorBoundary>
+					<PersistGate loading={null} persistor={persistor}>
+						<App />
+					</PersistGate>
+				</ErrorBoundary>
+			</Provider>,
   document.getElementById('root')
 );

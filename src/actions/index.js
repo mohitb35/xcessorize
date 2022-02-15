@@ -14,7 +14,8 @@ import {
 	REQUEST_PRODUCTS,
 	SIGN_IN,
 	START_SIGN_IN, 
-	SIGN_OUT
+	SIGN_OUT,
+	RESTART_APP
 } from './types';
 
 import apiServer from '../apis/apiServer';
@@ -226,6 +227,12 @@ export const fetchOrder = (orderId) => {
 		}
 	}
 }
+
+export const restartApp = () => {
+	return {
+		type: RESTART_APP
+	}
+};
 
 export const apiError = (err) => {
 	return {

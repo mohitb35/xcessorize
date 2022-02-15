@@ -9,7 +9,7 @@ import './Login.css';
 
 const renderLoginMessage = () => {
 	return (
-		<div className="login-needed-message">
+		<div className="alert-message">
 			<p>Please sign in to access that page.</p>
 			<GoogleAuth place="login"/>
 		</div>

@@ -5,7 +5,8 @@ import {
 	REQUEST_ORDER, 
 	RECEIVE_ORDER,
 	REQUEST_ORDER_CREATE,
-	COMPLETE_ORDER_CREATE
+	COMPLETE_ORDER_CREATE,
+	RESTART_APP
 } from "../actions/types";
 
 const INITIAL_STATE = {
@@ -16,8 +17,6 @@ const INITIAL_STATE = {
 
 const orderReducer = (state = INITIAL_STATE, action) => {
 	switch (action.type) {
-		case SIGN_OUT:
-			return INITIAL_STATE;
 		case REQUEST_ORDERS: 
 			return {
 				...state,
@@ -61,6 +60,9 @@ const orderReducer = (state = INITIAL_STATE, action) => {
 				isCreating: false,
 				items: [...state.items, action.payload]
 			}
+		case RESTART_APP:
+		case SIGN_OUT:
+			return INITIAL_STATE;
 		default:
 			return state;
 	}

@@ -13,25 +13,28 @@ import Footer from './Footer';
 import PrivateRoute from './PrivateRoute';
 import Login from './Login';
 
-const App = () => {
-  return (
-    <div className="app">
-		<BrowserRouter>
-			<Header />
-			<main className="container">
-				<Switch>
-					<Route path="/" exact component={Home} />
-					<Route path="/cart" exact component={Cart} />
-					<PrivateRoute path="/checkout" exact component={Checkout} />
-					<PrivateRoute path="/orders" exact component={Orders} />
-					<PrivateRoute path="/orders/:id" exact component={OrderDetails} />
-					<Route path="/login" exact component={Login} />
-				</Switch>
-			</main>
-			<Footer />
-		</BrowserRouter>
-    </div>
-  )
+class App extends React.Component {
+	render() {
+		// throw new Error("Test error");
+		return (
+			<div className="app">
+				<BrowserRouter>
+					<Header />
+					<main className="container">
+						<Switch>
+							<Route path="/" exact component={Home} />
+							<Route path="/cart" exact component={Cart} />
+							<PrivateRoute path="/checkout" exact component={Checkout} />
+							<PrivateRoute path="/orders" exact component={Orders} />
+							<PrivateRoute path="/orders/:id" exact component={OrderDetails} />
+							<Route path="/login" exact component={Login} />
+						</Switch>
+					</main>
+					<Footer />
+				</BrowserRouter>
+			</div>
+		)
+	}
 }
 
 export default App;

@@ -1,4 +1,4 @@
-import { SIGN_IN, SIGN_OUT, START_SIGN_IN } from '../actions/types';
+import { SIGN_IN, SIGN_OUT, START_SIGN_IN, RESTART_APP } from '../actions/types';
 
 const INITIAL_STATE = {
 	isSigningIn: false,
@@ -14,6 +14,8 @@ const authReducer = (state = INITIAL_STATE, action) => {
 			return { ...state, isSigningIn: false, isSignedIn: true, userId: action.payload };
 		case SIGN_OUT:
 			return { ...state, isSigningIn: false, isSignedIn: false, userId: null };
+		case RESTART_APP:
+			return INITIAL_STATE;
 		default:
 			return state;
 	}
