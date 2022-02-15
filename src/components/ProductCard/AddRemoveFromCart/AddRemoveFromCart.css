@@ -1,9 +1,11 @@
 .add-to-cart-button {
 	background-color: #f4a540;
+	color: #000000;
 }
 
 .remove-from-cart-button {
 	background-color: #fff;
+	color: #000000;
 }
 
 .button-round {
