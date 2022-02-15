@@ -15,6 +15,7 @@ import {
 	SIGN_IN,
 	START_SIGN_IN, 
 	SIGN_OUT,
+	ABORT_SIGN_IN,
 	RESTART_APP
 } from './types';
 
@@ -30,6 +31,12 @@ export const signIn = (userId) => {
 	return {
 		type: SIGN_IN,
 		payload: userId
+	}
+}
+
+export const abortSignIn = () => {
+	return {
+		type: ABORT_SIGN_IN
 	}
 }
 

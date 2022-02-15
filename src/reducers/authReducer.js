@@ -1,4 +1,4 @@
-import { SIGN_IN, SIGN_OUT, START_SIGN_IN, RESTART_APP } from '../actions/types';
+import { SIGN_IN, SIGN_OUT, START_SIGN_IN, RESTART_APP, ABORT_SIGN_IN } from '../actions/types';
 
 const INITIAL_STATE = {
 	isSigningIn: false,
@@ -13,6 +13,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
 		case SIGN_IN:
 			return { ...state, isSigningIn: false, isSignedIn: true, userId: action.payload };
 		case SIGN_OUT:
+		case ABORT_SIGN_IN:
 			return { ...state, isSigningIn: false, isSignedIn: false, userId: null };
 		case RESTART_APP:
 			return INITIAL_STATE;

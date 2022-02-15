@@ -1,5 +1,6 @@
 export const START_SIGN_IN = 'START_SIGN_IN';
 export const SIGN_IN = 'SIGN_IN';
+export const ABORT_SIGN_IN = 'ABORT_SIGN_IN';
 export const SIGN_OUT = 'SIGN_OUT';
 export const FETCH_CATEGORIES = 'FETCH_CATEGORIES';
 export const INVALIDATE_PRODUCTS = 'INVALIDATE_PRODUCTS';
