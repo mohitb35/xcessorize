@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import OrderCard from '../OrderCard';
+import Loader from '../Loader';
 
 import { fetchOrders } from '../../actions';
 
@@ -24,7 +25,10 @@ class Orders extends React.Component {
 		return (
 			<div className="orders">
 				<h1 className="page-header">My Orders ({this.props.orders.length})</h1>
-				{ this.props.orders.length === 0 && 
+				{ this.props.isFetching && 
+				<Loader />
+				}
+				{ !this.props.isFetching && this.props.orders.length === 0 && 
 					<div className="page-message">You haven't placed any orders yet. Orders placed will appear on this page.</div>
 				}
 				<div className="order-list">
@@ -37,7 +41,8 @@ class Orders extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		orders: state.orders
+		orders: state.orders.items,
+		isFetching: state.orders.isFetching
 	}
 }
 

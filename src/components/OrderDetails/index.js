@@ -8,6 +8,7 @@ import { fetchOrder } from '../../actions';
 import { formattedDate, formattedAddress } from '../../utils';
 
 import './OrderDetails.css'
+import Loader from '../Loader';
 
 class OrderDetails extends React.Component {
 	componentDidMount() {
@@ -69,21 +70,28 @@ class OrderDetails extends React.Component {
 
 	render() {
 		let { order } = this.props;
-		return (
-			<GridLayout
-				rootClass="order-details"
-				headerContent={`Order Details (#${order.id})`}
-				renderMainContent={this.renderMainContent}
-				renderSidebarHeader={this.renderSidebarHeader}
-				renderSidebarContent={this.renderSidebarContent}
-			/>
-		)
+		if (this.props.isFetching) {
+			return <Loader />
+		} else if (order) {
+			return (
+				<GridLayout
+					rootClass="order-details"
+					headerContent={`Order Details (#${order.id})`}
+					renderMainContent={this.renderMainContent}
+					renderSidebarHeader={this.renderSidebarHeader}
+					renderSidebarContent={this.renderSidebarContent}
+				/>
+			)
+		} else {
+			return <div>No such order found</div>;
+		}
 	}	
 }
 
 const mapStateToProps = (state, ownProps) => {
 	return {
-		order: state.orders.find(order => order.id === Number(ownProps.match.params.id))
+		order: state.orders.items.find(order => order.id === Number(ownProps.match.params.id)),
+		isFetching: state.orders.isFetching
 	}
 }
 

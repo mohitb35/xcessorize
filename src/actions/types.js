@@ -1,3 +1,4 @@
+export const START_SIGN_IN = 'START_SIGN_IN';
 export const SIGN_IN = 'SIGN_IN';
 export const SIGN_OUT = 'SIGN_OUT';
 export const FETCH_CATEGORIES = 'FETCH_CATEGORIES';
@@ -6,8 +7,11 @@ export const REQUEST_PRODUCTS = 'REQUEST_PRODUCTS';
 export const RECEIVE_PRODUCTS = 'RECEIVE_PRODUCTS';
 export const ADD_TO_CART = 'ADD_TO_CART';
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
-export const CREATE_ORDER = 'CREATE_ORDER';
-export const FETCH_ORDERS = 'FETCH_ORDERS';
-export const FETCH_ORDER = 'FETCH_ORDER';
+export const REQUEST_ORDERS = 'REQUEST_ORDERS';
+export const RECEIVE_ORDERS = 'RECEIVE_ORDERS';
+export const REQUEST_ORDER = 'REQUEST_ORDER';
+export const RECEIVE_ORDER = 'RECEIVE_ORDER';
+export const REQUEST_ORDER_CREATE = 'REQUEST_ORDER_CREATE';
+export const COMPLETE_ORDER_CREATE = 'COMPLETE_ORDER_CREATE';
 
 export const API_ERROR = 'API_ERROR';

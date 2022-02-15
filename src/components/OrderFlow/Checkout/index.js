@@ -39,7 +39,7 @@ class Checkout extends React.Component {
 	}
 
 	renderSidebarContent = () => {
-		let { cartItemCount } = this.props;
+		let { cartItemCount, isCreating } = this.props;
 		return (
 			<React.Fragment>
 				<table className="summary-item-table">
@@ -56,8 +56,13 @@ class Checkout extends React.Component {
 					<label>Payment method:</label>
 					<span className="info method">Cash on delivery</span>
 				</div>
-				<button className="place-order-button" form="address-form" disabled={!cartItemCount} formNoValidate>
-					Place Order
+				<button 
+					className="place-order-button" 
+					form="address-form" 
+					disabled={!cartItemCount || isCreating} 
+					formNoValidate
+				>
+					{isCreating ? 'Placing your order...' : 'Place order'}
 				</button>
 				<div className="text-separator"><span>or</span></div>
 				<Link to="/cart">
@@ -104,7 +109,8 @@ const mapStateToProps = (state) => {
 		cart: cartArray,
 		cartItemCount: cartItemCount(cartArray),
 		cartTotal: cartTotal(cartArray),
-		redirectTo: state.redirectTo
+		redirectTo: state.redirectTo,
+		isCreating: state.orders.isCreating
 	}
 }
 

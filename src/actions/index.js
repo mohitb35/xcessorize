@@ -1,19 +1,29 @@
 import { 
 	ADD_TO_CART,
 	API_ERROR,
-	CREATE_ORDER,
+	COMPLETE_ORDER_CREATE,
 	FETCH_CATEGORIES,
-	FETCH_ORDER,
-	FETCH_ORDERS,
 	INVALIDATE_PRODUCTS,
+	RECEIVE_ORDER,
+	RECEIVE_ORDERS,
 	RECEIVE_PRODUCTS,
 	REMOVE_FROM_CART,
+	REQUEST_ORDER,
+	REQUEST_ORDERS,
+	REQUEST_ORDER_CREATE,
 	REQUEST_PRODUCTS,
-	SIGN_IN, 
+	SIGN_IN,
+	START_SIGN_IN, 
 	SIGN_OUT
 } from './types';
 
 import apiServer from '../apis/apiServer';
+
+export const startSignIn = () => {
+	return {
+		type: START_SIGN_IN
+	}
+}
 
 export const signIn = (userId) => {
 	return {
@@ -114,6 +124,19 @@ export const removeFromCart = (product) => {
 	}
 }
 
+export const requestOrderCreate = () => {
+	return {
+		type: REQUEST_ORDER_CREATE
+	}
+}
+
+export const completeOrderCreate = (newOrder) => {
+	return {
+		type: COMPLETE_ORDER_CREATE,
+		payload: newOrder
+	}
+}
+
 export const createOrder = (formValues, cart, cartTotal, cartItemCount) => {
 	return async function (dispatch, getState) {
 		const orderData = {
@@ -125,21 +148,33 @@ export const createOrder = (formValues, cart, cartTotal, cartItemCount) => {
 			payment: 'Cash on delivery',
 			orderDate: new Date()
 		}
+		dispatch(requestOrderCreate());
 		try {
 			const response = await apiServer.post('/orders', orderData);
 			const newOrder = response.data;
-			dispatch({
-				type: CREATE_ORDER,
-				payload: newOrder
-			});
+			dispatch(completeOrderCreate(newOrder));
 		} catch (err) {
 			dispatch(apiError(err));
 		}
 	}
 }
 
+export const requestOrders = () => {
+	return {
+		type: REQUEST_ORDERS
+	}
+}
+
+export const receiveOrders = (orders) => {
+	return {
+		type: RECEIVE_ORDERS,
+		payload: orders
+	}
+}
+
 export const fetchOrders = () => {
 	return async function (dispatch, getState) {
+		dispatch(requestOrders());
 		try {
 			const { userId } = getState().auth;
 			let orders = [];
@@ -151,10 +186,7 @@ export const fetchOrders = () => {
 				});
 				orders = response.data;
 			}
-			dispatch({
-				type: FETCH_ORDERS,
-				payload: orders
-			});
+			dispatch(receiveOrders(orders));
 		} catch (err) {
 			console.log(err);
 			dispatch(apiError(err));
@@ -162,19 +194,34 @@ export const fetchOrders = () => {
 	}
 }
 
+export const requestOrder = () => {
+	return {
+		type: REQUEST_ORDER
+	}
+}
+
+export const receiveOrder = (order) => {
+	return {
+		type: RECEIVE_ORDER,
+		payload: order
+	}
+}
+
 export const fetchOrder = (orderId) => {
 	return async function (dispatch, getState) {
+		dispatch(requestOrder());
 		try {
 			const response = await apiServer.get(`/orders/${orderId}`, {
 				params: {
 					userId: getState().auth.userId
 				}
 			});
-			dispatch({
-				type: FETCH_ORDER,
-				payload: response.data
-			});
+			const order = response.data;
+			dispatch(receiveOrder(order));
 		} catch (err) {
+			if (err.response && err.response.status === 404) {
+				dispatch(receiveOrder(null));
+			}
 			dispatch(apiError(err));
 		}
 	}

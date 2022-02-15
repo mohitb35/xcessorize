@@ -56,7 +56,7 @@ class Header extends React.Component {
 						</li>
 						{ location.pathname !== '/login' && 
 						<li className="nav-button">
-							<GoogleAuth />	
+							<GoogleAuth place="header"/>	
 						</li>
 						}	
 					</ul>

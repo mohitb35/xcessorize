@@ -11,7 +11,7 @@ const renderLoginMessage = () => {
 	return (
 		<div className="login-needed-message">
 			<p>Please sign in to access that page.</p>
-			<GoogleAuth />
+			<GoogleAuth place="login"/>
 		</div>
 	)
 }

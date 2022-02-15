@@ -13,8 +13,10 @@ class FilterBar extends React.Component {
 		}
 
 	componentDidMount() {
-		this.props.fetchCategories();
-		this.props.invalidateProducts();
+		if (!this.props.categories.length) {
+			this.props.fetchCategories();
+		}
+		this.props.invalidateProducts(); //Reconsider. Is a better approach available?
 		this.props.fetchProducts(); //Reconsider. Is this the best place for this?
 	}
 	

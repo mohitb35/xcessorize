@@ -1,4 +1,4 @@
-import { ADD_TO_CART, CREATE_ORDER, REMOVE_FROM_CART, SIGN_OUT } from "../actions/types";
+import { ADD_TO_CART, COMPLETE_ORDER_CREATE, REMOVE_FROM_CART, SIGN_OUT } from "../actions/types";
 
 const INITIAL_STATE = {};
 
@@ -29,7 +29,7 @@ const cartReducer = (state = INITIAL_STATE, action) => {
 					}
 				}
 			};
-		case CREATE_ORDER: 
+		case COMPLETE_ORDER_CREATE: 
 		case SIGN_OUT:
 			return INITIAL_STATE;
 		default:
