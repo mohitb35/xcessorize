@@ -68,6 +68,14 @@ a.disabled {
 	transform: none;
 }
 
+.button-round {
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	margin: 0 auto;
+	font-size: 1.1rem;
+}
+
 input {
 	appearance: none;
 	padding: 8px 10px;

@@ -24,3 +24,4 @@ yarn-error.log*
 src/assets/cancel-old.png
 src/assets/xcessorize-logo-old.png
 src/assets/menu-old.png
+.vscode/launch.json

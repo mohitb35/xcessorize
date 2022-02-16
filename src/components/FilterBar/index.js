@@ -80,7 +80,7 @@ class FilterBar extends React.Component {
 					>
 						<option disabled>Filter by category</option>
 						<option value="0">All Categories</option>
-						{this.generateCategoryOptions()}
+						{!this.props.isFetching && this.generateCategoryOptions()}
 					</select>
 				</form>
 			</div>
@@ -124,7 +124,8 @@ class FilterBar extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		categories: state.categories
+		categories: state.categories.items,
+		isFetching: state.categories.isFetching
 	}
 }
 

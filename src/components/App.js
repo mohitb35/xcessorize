@@ -12,6 +12,7 @@ import OrderDetails from './OrderDetails';
 import Footer from './Footer';
 import PrivateRoute from './PrivateRoute';
 import Login from './Login';
+import Toast from './Toast';
 
 class App extends React.Component {
 	render() {
@@ -21,6 +22,7 @@ class App extends React.Component {
 				<BrowserRouter>
 					<Header />
 					<main className="container">
+						<Toast />
 						<Switch>
 							<Route path="/" exact component={Home} />
 							<Route path="/cart" exact component={Cart} />

@@ -2,7 +2,9 @@ import {
 	ADD_TO_CART,
 	API_ERROR,
 	COMPLETE_ORDER_CREATE,
-	FETCH_CATEGORIES,
+	FETCH_CATEGORIES_REQUEST,
+	FETCH_CATEGORIES_SUCCESS,
+	FETCH_CATEGORIES_FAILURE,
 	INVALIDATE_PRODUCTS,
 	RECEIVE_ORDER,
 	RECEIVE_ORDERS,
@@ -16,10 +18,12 @@ import {
 	START_SIGN_IN, 
 	SIGN_OUT,
 	ABORT_SIGN_IN,
-	RESTART_APP
+	RESTART_APP,
+	DISMISS_ERROR
 } from './types';
 
 import apiServer from '../apis/apiServer';
+import { processFetchError } from '../utils';
 
 export const startSignIn = () => {
 	return {
@@ -48,15 +52,19 @@ export const signOut = () => {
 
 export const fetchCategories = () => {
 	return async function(dispatch) {
+		dispatch({type: FETCH_CATEGORIES_REQUEST});
 		try {
 			const response = await apiServer.get('/categories');
-			const categories = response.data;
+			const categories = response.data ? response.data : [];
 			dispatch({
-				type: FETCH_CATEGORIES,
+				type: FETCH_CATEGORIES_SUCCESS,
 				payload: categories
 			})
 		} catch (err) {
-			dispatch(apiError(err));
+			dispatch({ 
+				type: FETCH_CATEGORIES_FAILURE,
+				error: processFetchError(err, 'categories')
+			})
 		}
 	}
 }
@@ -112,8 +120,8 @@ export const fetchProducts = (searchTerm = '', categoryId = 0, sortOption = 1) =
 			const products = response.data;
 			dispatch(receiveProducts(products));
 		} catch (err) {
-			console.log(err);
-			dispatch(apiError(err));
+			// console.log(err);
+			// dispatch(apiError(err));
 		}
 	}
 }
@@ -241,7 +249,23 @@ export const restartApp = () => {
 	}
 };
 
-export const apiError = (err) => {
+export const dismissError = () => {
+	return {
+		type: DISMISS_ERROR
+	}
+}
+
+export const handleError = () => {
+
+}
+
+export const apiError = (err, customMessage) => {
+	console.log('In action creator apiError');
+	console.dir(err);
+	console.log(err.status);
+	console.log('==============');
+	/* console.dir(err);
+	console.log(customMessage); */
 	return {
 		type: API_ERROR,
 		payload: err

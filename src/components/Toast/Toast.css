@@ -1,0 +1,50 @@
+.toast {
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 50px;
+	margin: 0 auto;
+	background-color: rgba(51, 51, 51, 0.97);
+	color: #f7f7f7;
+	width: 500px;
+	max-width: 90%;
+	border-radius: 15px;
+	padding: 10px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 10px;
+	animation: fadeIn linear 600ms;
+}
+
+.toast.hidden {
+	animation: fadeOut linear 600ms;
+}
+
+.toast-message {
+	flex: 1;
+	text-align: left;
+	padding: 0 10px;
+}
+
+.close-toast-button {
+	font-size: 1.5rem;
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0%;
+	}
+	100% {
+		opacity: 100%;
+	}
+}
+
+@keyframes fadeOut {
+	0% {
+		opacity: 100%;
+	}
+	100% {
+		opacity: 0%;
+	}
+}
