@@ -69,8 +69,8 @@ class OrderDetails extends React.Component {
 	}
 
 	render() {
-		let { order } = this.props;
-		if (this.props.isFetching) {
+		let { order, isFetching, fetchError } = this.props;
+		if (isFetching) {
 			return <Loader />
 		} else if (order) {
 			return (
@@ -82,8 +82,10 @@ class OrderDetails extends React.Component {
 					renderSidebarContent={this.renderSidebarContent}
 				/>
 			)
-		} else {
+		} else if (!fetchError) {
 			return <div>No such order found</div>;
+		} else {
+			return null;
 		}
 	}	
 }
@@ -91,7 +93,8 @@ class OrderDetails extends React.Component {
 const mapStateToProps = (state, ownProps) => {
 	return {
 		order: state.orders.items.find(order => order.id === Number(ownProps.match.params.id)),
-		isFetching: state.orders.isFetching
+		isFetching: state.orders.isFetching,
+		fetchError: state.orders.fetchError
 	}
 }
 

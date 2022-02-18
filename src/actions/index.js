@@ -1,19 +1,22 @@
 import { 
 	ADD_TO_CART,
+	REMOVE_FROM_CART,
 	API_ERROR,
 	COMPLETE_ORDER_CREATE,
 	FETCH_CATEGORIES_REQUEST,
 	FETCH_CATEGORIES_SUCCESS,
 	FETCH_CATEGORIES_FAILURE,
 	INVALIDATE_PRODUCTS,
-	RECEIVE_ORDER,
-	RECEIVE_ORDERS,
-	RECEIVE_PRODUCTS,
-	REMOVE_FROM_CART,
-	REQUEST_ORDER,
-	REQUEST_ORDERS,
+	FETCH_PRODUCTS_REQUEST,
+	FETCH_PRODUCTS_SUCCESS,
+	FETCH_PRODUCTS_FAILURE,
+	FETCH_ORDERS_REQUEST,
+	FETCH_ORDERS_SUCCESS,
+	FETCH_ORDERS_FAILURE,
+	FETCH_ORDER_REQUEST,
+	FETCH_ORDER_FAILURE,
+	FETCH_ORDER_SUCCESS,
 	REQUEST_ORDER_CREATE,
-	REQUEST_PRODUCTS,
 	SIGN_IN,
 	START_SIGN_IN, 
 	SIGN_OUT,
@@ -75,22 +78,9 @@ export const invalidateProducts = () => {
 	}
 }
 
-export const requestProducts = () => {
-	return {
-		type: REQUEST_PRODUCTS
-	}
-}
-
-export const receiveProducts = (products) => {
-	return {
-		type: RECEIVE_PRODUCTS,
-		payload: products
-	}
-}
-
 export const fetchProducts = (searchTerm = '', categoryId = 0, sortOption = 1) => {
 	return async function(dispatch) {
-		dispatch(requestProducts());
+		dispatch({ type: FETCH_PRODUCTS_REQUEST });
 		try {
 			const queryConfig = {};
 			
@@ -118,10 +108,15 @@ export const fetchProducts = (searchTerm = '', categoryId = 0, sortOption = 1) =
 			});
 
 			const products = response.data;
-			dispatch(receiveProducts(products));
+			dispatch({
+				type: FETCH_PRODUCTS_SUCCESS,
+				payload: products
+			});
 		} catch (err) {
-			// console.log(err);
-			// dispatch(apiError(err));
+			dispatch({ 
+				type: FETCH_PRODUCTS_FAILURE,
+				error: processFetchError(err, 'products')
+			})
 		}
 	}
 }
@@ -175,22 +170,9 @@ export const createOrder = (formValues, cart, cartTotal, cartItemCount) => {
 	}
 }
 
-export const requestOrders = () => {
-	return {
-		type: REQUEST_ORDERS
-	}
-}
-
-export const receiveOrders = (orders) => {
-	return {
-		type: RECEIVE_ORDERS,
-		payload: orders
-	}
-}
-
 export const fetchOrders = () => {
 	return async function (dispatch, getState) {
-		dispatch(requestOrders());
+		dispatch({ type: FETCH_ORDERS_REQUEST });
 		try {
 			const { userId } = getState().auth;
 			let orders = [];
@@ -202,30 +184,22 @@ export const fetchOrders = () => {
 				});
 				orders = response.data;
 			}
-			dispatch(receiveOrders(orders));
+			dispatch({
+				type: FETCH_ORDERS_SUCCESS,
+				payload: orders
+			});
 		} catch (err) {
-			console.log(err);
-			dispatch(apiError(err));
+			dispatch({ 
+				type: FETCH_ORDERS_FAILURE,
+				error: processFetchError(err, 'orders')
+			})
 		}
-	}
-}
-
-export const requestOrder = () => {
-	return {
-		type: REQUEST_ORDER
-	}
-}
-
-export const receiveOrder = (order) => {
-	return {
-		type: RECEIVE_ORDER,
-		payload: order
 	}
 }
 
 export const fetchOrder = (orderId) => {
 	return async function (dispatch, getState) {
-		dispatch(requestOrder());
+		dispatch({ type: FETCH_ORDER_REQUEST });
 		try {
 			const response = await apiServer.get(`/orders/${orderId}`, {
 				params: {
@@ -233,12 +207,23 @@ export const fetchOrder = (orderId) => {
 				}
 			});
 			const order = response.data;
-			dispatch(receiveOrder(order));
+			dispatch({
+				type: FETCH_ORDER_SUCCESS,
+				payload: order
+			});
 		} catch (err) {
 			if (err.response && err.response.status === 404) {
-				dispatch(receiveOrder(null));
+				dispatch({
+					type: FETCH_ORDER_SUCCESS,
+					payload: null
+
+				})
+			} else {
+				dispatch({ 
+					type: FETCH_ORDER_FAILURE,
+					error: processFetchError(err, 'order')
+				});
 			}
-			dispatch(apiError(err));
 		}
 	}
 }

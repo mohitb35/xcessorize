@@ -22,13 +22,14 @@ class Orders extends React.Component {
 	}
 
 	render() {
+		const { isFetching, fetchError, orders } = this.props;
 		return (
 			<div className="orders">
-				<h1 className="page-header">My Orders ({this.props.orders.length})</h1>
-				{ this.props.isFetching && 
+				<h1 className="page-header">My Orders ({orders.length})</h1>
+				{ isFetching && 
 				<Loader />
 				}
-				{ !this.props.isFetching && this.props.orders.length === 0 && 
+				{ !(isFetching || fetchError) && orders.length === 0 && 
 					<div className="page-message">You haven't placed any orders yet. Orders placed will appear on this page.</div>
 				}
 				<div className="order-list">
@@ -42,7 +43,8 @@ class Orders extends React.Component {
 const mapStateToProps = (state) => {
 	return {
 		orders: state.orders.items,
-		isFetching: state.orders.isFetching
+		isFetching: state.orders.isFetching,
+		fetchError: state.orders.fetchError
 	}
 }
 
