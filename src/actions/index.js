@@ -1,8 +1,6 @@
 import { 
 	ADD_TO_CART,
 	REMOVE_FROM_CART,
-	API_ERROR,
-	COMPLETE_ORDER_CREATE,
 	FETCH_CATEGORIES_REQUEST,
 	FETCH_CATEGORIES_SUCCESS,
 	FETCH_CATEGORIES_FAILURE,
@@ -16,7 +14,9 @@ import {
 	FETCH_ORDER_REQUEST,
 	FETCH_ORDER_FAILURE,
 	FETCH_ORDER_SUCCESS,
-	REQUEST_ORDER_CREATE,
+	CREATE_ORDER_REQUEST,
+	CREATE_ORDER_SUCCESS,
+	CREATE_ORDER_FAILURE,
 	SIGN_IN,
 	START_SIGN_IN, 
 	SIGN_OUT,
@@ -26,7 +26,7 @@ import {
 } from './types';
 
 import apiServer from '../apis/apiServer';
-import { processFetchError } from '../utils';
+import { processCreateError, processFetchError } from '../utils';
 
 export const startSignIn = () => {
 	return {
@@ -135,37 +135,31 @@ export const removeFromCart = (product) => {
 	}
 }
 
-export const requestOrderCreate = () => {
-	return {
-		type: REQUEST_ORDER_CREATE
-	}
-}
-
-export const completeOrderCreate = (newOrder) => {
-	return {
-		type: COMPLETE_ORDER_CREATE,
-		payload: newOrder
-	}
-}
-
 export const createOrder = (formValues, cart, cartTotal, cartItemCount) => {
 	return async function (dispatch, getState) {
-		const orderData = {
-			...formValues, 
-			items: cart,
-			itemCount: cartItemCount,
-			total: cartTotal,
-			userId: getState().auth.userId,
-			payment: 'Cash on delivery',
-			orderDate: new Date()
-		}
-		dispatch(requestOrderCreate());
+		dispatch({ type: CREATE_ORDER_REQUEST });
 		try {
+			const orderData = {
+				...formValues, 
+				items: cart,
+				itemCount: cartItemCount,
+				total: cartTotal,
+				userId: getState().auth.userId,
+				payment: 'Cash on delivery',
+				orderDate: new Date()
+			}
+		
 			const response = await apiServer.post('/orders', orderData);
 			const newOrder = response.data;
-			dispatch(completeOrderCreate(newOrder));
+			dispatch({
+				type: CREATE_ORDER_SUCCESS,
+				payload: newOrder
+			});
 		} catch (err) {
-			dispatch(apiError(err));
+			dispatch({ 
+				type: CREATE_ORDER_FAILURE,
+				error: processCreateError(err, 'order')
+			})
 		}
 	}
 }
@@ -237,22 +231,5 @@ export const restartApp = () => {
 export const dismissError = () => {
 	return {
 		type: DISMISS_ERROR
-	}
-}
-
-export const handleError = () => {
-
-}
-
-export const apiError = (err, customMessage) => {
-	console.log('In action creator apiError');
-	console.dir(err);
-	console.log(err.status);
-	console.log('==============');
-	/* console.dir(err);
-	console.log(customMessage); */
-	return {
-		type: API_ERROR,
-		payload: err
 	}
 }

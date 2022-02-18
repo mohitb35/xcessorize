@@ -7,7 +7,8 @@ import './Toast.css';
 
 class Toast extends React.Component {
 	state = {
-		isToastVisible: false
+		isToastVisible: false,
+		timeoutId: null
 	}
 
 	componentDidUpdate(prevProps) {
@@ -22,11 +23,19 @@ class Toast extends React.Component {
 		this.setState({
 			isToastVisible: false
 		});
-		setTimeout( () => this.props.dismissError(), 500 );
+		this.setState({
+			timeoutId: setTimeout( () => this.props.dismissError(), 500 )
+		});
+	}
+
+	componentWillUnmount() {
+		console.log("Unmounting");
+		clearTimeout(this.state.timeoutId);
 	}
 
 	render() {
-		if (!this.props.error) {
+		const { error } = this.props;
+		if (!error) {
 		 	return null;
 		}
 
@@ -34,7 +43,9 @@ class Toast extends React.Component {
 
 		return (
 			<div className={toastClasses}>
-				<p className="toast-message">{this.props.error.displayMessage}</p>
+				<p className="toast-message">
+					{error.displayMessage || 'Oops..Something went wrong. Please try again after some time.'}
+				</p>
 				<button className="close-toast-button button-round" onClick={this.handleDismissClick}>
 				&#215;
 				</button>

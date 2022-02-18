@@ -15,6 +15,7 @@
 	align-items: center;
 	gap: 10px;
 	animation: fadeIn linear 600ms;
+	z-index: 10;
 }
 
 .toast.hidden {

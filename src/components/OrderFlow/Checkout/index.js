@@ -110,7 +110,8 @@ const mapStateToProps = (state) => {
 		cartItemCount: cartItemCount(cartArray),
 		cartTotal: cartTotal(cartArray),
 		redirectTo: state.redirectTo,
-		isCreating: state.orders.isCreating
+		isCreating: state.orders.isCreating,
+		createError: state.orders.createError
 	}
 }
 

@@ -50,6 +50,25 @@ export const processFetchError = (error, resourceName) => {
 	return processedError;
 }
 
+export const processCreateError = (error, resourceName) => {
+	console.dir(error);
+	let processedError = {
+		displayMessage: null,
+		logMessage: error.message,
+		stack: error.stack
+	}
+
+	if (error.isAxiosError) {	
+		if (!error.response) {
+			processedError.displayMessage = 'Could not reach the server. Please check your network and try again';
+		} else {
+			processedError.displayMessage = `An error occurred. ${capitalizeFirstLetter(resourceName)} could not be created. Please try after some time.`;
+		}
+	}
+
+	return processedError;
+}
+
 export const capitalizeFirstLetter = (str) => {
 	return str[0].toUpperCase() + str.slice(1);
 }
