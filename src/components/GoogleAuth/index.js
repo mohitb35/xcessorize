@@ -4,24 +4,29 @@ import { connect } from 'react-redux';
 import './GoogleAuth.css';
 import googleLogo from '../../assets/google.svg';
 
-import { startSignIn, signIn, signOut } from '../../actions';
+import { startSignIn, signIn, signOut, abortSignIn, handleGeneralError } from '../../actions';
 
 class GoogleAuth extends React.Component {
 	componentDidMount() {
-		window.gapi.load('client:auth2', () => {
-			window.gapi.client.init({
-				clientId: '497465941851-d8ef28lco7akqe6nrregvslae9rbrpr0.apps.googleusercontent.com',
-				scope: 'email'
-			}).then(() => {
-				//Get auth object, and set state with isSignedIn
-				this.auth = window.gapi.auth2.getAuthInstance();
-				const isGoogleSignedIn = this.auth.isSignedIn.get();
-				if(this.props.isSignedIn !== isGoogleSignedIn) {
-					this.onAuthChange(isGoogleSignedIn);
-				}
-				this.auth.isSignedIn.listen(this.onAuthChange);
-			})
-		});
+		try {
+			window.gapi.load('client:auth2', () => {
+				window.gapi.client.init({
+					clientId: '497465941851-d8ef28lco7akqe6nrregvslae9rbrpr0.apps.googleusercontent.com',
+					scope: 'email'
+				}).then(() => {
+					//Get auth object, and set state with isSignedIn
+					this.auth = window.gapi.auth2.getAuthInstance();
+					const isGoogleSignedIn = this.auth.isSignedIn.get();
+					if(this.props.isSignedIn !== isGoogleSignedIn) {
+						this.onAuthChange(isGoogleSignedIn);
+					}
+					this.auth.isSignedIn.listen(this.onAuthChange);
+				})
+			});
+		} catch (err) {
+			err.displayMessage = 'Google sign in seems to be unavailable. Please check your network.';
+			this.props.handleGeneralError(err);
+		}
 	};
 
 	componentWillUnmount() {
@@ -29,7 +34,6 @@ class GoogleAuth extends React.Component {
 	}
 
 	onAuthChange = (isGoogleSignedIn) => {
-		console.log(this.props.place, " - Auth change detected:", this.props.isSignedIn, "g:", isGoogleSignedIn);
 		if (this.auth) {
 			if (isGoogleSignedIn){
 				const userId = this.auth.currentUser.get().getId();
@@ -44,13 +48,25 @@ class GoogleAuth extends React.Component {
 		}
 	}
 
-	handleSignIn = () => {
-		this.props.startSignIn();
-		this.auth.signIn();
+	handleSignIn = async () => {
+		try {
+			this.props.startSignIn();
+			await this.auth.signIn();
+		} catch (err) {
+			err.displayMessage = 'Unable to sign in. Please check your network and refresh the page';
+			this.props.handleGeneralError(err);
+			this.props.abortSignIn();
+		}
 	}
 
-	handleSignOut = () => {
-		this.auth.signOut();
+	handleSignOut = async () => {
+		try {
+			await this.auth.signOut();
+		} catch (err) {
+			err.displayMessage = 'Unable to sign out. Please check your network and refresh the page';
+			this.props.handleGeneralError(err);
+		}
+		
 	}
 
 	renderAuthButton() {
@@ -99,5 +115,5 @@ const mapStateToProps = (state) => {
 
 export default connect(
 	mapStateToProps,
-	{startSignIn, signIn, signOut}
+	{startSignIn, signIn, abortSignIn, signOut, handleGeneralError}
 )(GoogleAuth);

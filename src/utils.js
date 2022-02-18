@@ -51,7 +51,6 @@ export const processFetchError = (error, resourceName) => {
 }
 
 export const processCreateError = (error, resourceName) => {
-	console.dir(error);
 	let processedError = {
 		displayMessage: null,
 		logMessage: error.message,
@@ -67,6 +66,14 @@ export const processCreateError = (error, resourceName) => {
 	}
 
 	return processedError;
+}
+
+export const processGeneralError = (error) => {
+	return {
+		displayMessage: error.displayMessage,
+		logMessage: error.message,
+		stack: error.stack
+	}
 }
 
 export const capitalizeFirstLetter = (str) => {

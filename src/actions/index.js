@@ -22,11 +22,12 @@ import {
 	SIGN_OUT,
 	ABORT_SIGN_IN,
 	RESTART_APP,
-	DISMISS_ERROR
+	DISMISS_ERROR,
+	GENERAL_ERROR
 } from './types';
 
 import apiServer from '../apis/apiServer';
-import { processCreateError, processFetchError } from '../utils';
+import { processCreateError, processFetchError, processGeneralError } from '../utils';
 
 export const startSignIn = () => {
 	return {
@@ -232,4 +233,11 @@ export const dismissError = () => {
 	return {
 		type: DISMISS_ERROR
 	}
+}
+
+export const handleGeneralError = (error) => {
+	return ({
+		type: GENERAL_ERROR,
+		error: processGeneralError(error)
+	});
 }
